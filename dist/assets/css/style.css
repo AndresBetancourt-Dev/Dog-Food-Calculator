@@ -1,0 +1,81 @@
+@font-face{
+    src: url('../fonts/Delius-Regular.ttf');
+    font-family: 'Delius';
+}
+
+.Calculator__main{
+    font-family: 'Delius', sans-serif;
+    display: grid;
+    width: 100%;
+    justify-items: center;
+}
+
+.Calculator__main *{
+    box-sizing: border-box;
+}
+
+.Calculator__title{
+    color: #81c35a;
+    text-align: center;
+}
+
+.Calculator__select{
+    display: grid;
+    margin-bottom: 20px;
+    width: 80%;
+}
+
+.Calculator__select label{
+    font-size: large;
+    font-weight: bold;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    align-content: center;
+}
+
+.Calculator__select select{
+    font-family: 'Delius', sans-serif;
+    width: 100%;
+    padding : 5px;
+    border-radius: 7.5px;
+    font-size: large;
+}
+
+
+.Calculator__button{
+    font-family: 'Delius', sans-serif;
+    font-size: larger;
+    font-weight: bolder;
+    border: none;
+    border-radius: 5px;
+    width: 80%;
+    padding: 20px;
+    cursor: pointer;
+    color: white;
+    background-color:#7dd56c;
+    margin-bottom: 20px;
+}
+
+
+[id$="error"]{
+    box-sizing: border-box;
+    padding-top: 20px;
+    color: crimson;
+}
+
+.Calculator__results{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width: 80%;
+    justify-items: center;
+    box-sizing: border-box;
+    max-height: 0;
+    transition: max-height 1s;
+    overflow: hidden;
+}
+
+.Calculator__results img{
+    width: 100px;
+    height: 100px;
+}

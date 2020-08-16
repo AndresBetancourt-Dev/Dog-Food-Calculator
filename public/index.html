@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Food Calculator</title>
+    <link rel="stylesheet" href="../dist/assets/css/style.css">
+</head>
+
+<body>
+    <form class="Calculator__main">
+        <h1 class="Calculator__title">
+            Calculadora de Porciones
+        </h1>
+        <div class="Calculator__select">
+            <label for="petSize">Tamaño del Perro </label>
+            <select name="petSize" id="petSize" required>
+                <option value="none">Seleccione...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">Grande (+20kg)</option>
+            </select>
+            <span id="petSize-error"></span>
+        </div>
+
+        <div class="Calculator__select">
+            <label for="petActivity">Nivel de Actividad </label>
+            <select name="petActivity" id="petActivity" required>
+                <option value="none">Seleccione...</option>
+                <option value="Bajo">Bajo</option>
+                <option value="Normal">Normal</option>
+                <option value="Alto">Alto</option>
+            </select>
+            <span id="petActivity-error"></span>
+        </div>
+
+        <div class="Calculator__select">
+            <label for="petAge">Edad</label>
+            <select name="petAge" id="petAge" required>
+                <option value="none">Seleccione...</option>
+                <option value="Bebe">Cachorro (2-4 Meses)</option>
+                <option value="Niño">Cachorro (5-8 Meses)</option>
+                <option value="Adolescente">Cachorro (9-12 Meses)</option>
+                <option value="Adulto">Adulto</option>
+            </select>
+            <span id="petAge-error"></span>
+        </div>
+
+        <button type="submit" class="Calculator__button">Calcular</button>
+        <div class="Calculator__results">
+            <img src="https://gurualimentonatural.com/wp-content/uploads/2018/11/Balance_12-400x400.jpg" alt="">
+            <img src="https://gurualimentonatural.com/wp-content/uploads/2018/11/Vida_12-400x400.jpg" alt="">
+            <img src="https://gurualimentonatural.com/wp-content/uploads/2019/07/VitalPlus-400x400.jpg" alt="">
+        </div>
+    </form>
+    <script src="../dist/js/Calculator.js">
+    </script>
+</body>
+
+</html>
