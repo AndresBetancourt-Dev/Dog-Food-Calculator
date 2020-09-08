@@ -10,24 +10,13 @@
 
 <body>
     <form class="Calculator__main">
-        <h1 class="Calculator__title">
+        <h2 class="Calculator__title">
             Calculadora de Porciones
-        </h1>
+        </h2>
         <div class="Calculator__select">
             <label for="petSize">Peso (kg)</label>
             <input type="number" name="petSize" id="petSize" min="0" max="50">
             <span id="petSize-error"></span>
-        </div>
-
-        <div class="Calculator__select">
-            <label for="petActivity">Nivel de Actividad </label>
-            <select name="petActivity" id="petActivity" required>
-                <option value="none">Seleccione...</option>
-                <option value="Bajo">Bajo</option>
-                <option value="Normal">Normal</option>
-                <option value="Alto">Alto</option>
-            </select>
-            <span id="petActivity-error"></span>
         </div>
 
         <div class="Calculator__select">
@@ -42,24 +31,75 @@
             <span id="petAge-error"></span>
         </div>
 
-        <button type="submit" class="Calculator__button">Calcular</button>
+        <div class="Calculator__select" id="Castrated">
+            <label for="petCastrated">¿Castrado?</label>
+            <select name="petCastrated" id="petCastrated" required>
+                <option value="none">Seleccione...</option>
+                <option value="YES">Sí</option>
+                <option value="NO">No</option>
+            </select>
+            <span id="petCastrated-error"></span>
+        </div>
+
+        <button class="Calculator__button">Calcular</button>
         <div class="Calculator__results">
+            <h2 class="Calculator__subtitle">Resultados</h2>
             <div class="Calculator__results-data">
                 <div class="Calculator__results--item">
                     <div id="portion">1</div>
-                    <span>Gramos /día</span>
-                </div>
-                <div class="Calculator__results--item">
-                    <div id="monthly">4</div>
-                    <span>Gramos /mes</span>
+                    <span>Gurú al día (gr)</span>
                 </div>
                 <div class="Calculator__results--item">
                     <div id="foodAmount">2</div>
-                    <span>Kilogramos</span>
+                    <span>Mensualidad Gurú (Kg)</span>
                 </div>
                 <div class="Calculator__results--item">
                     <div id="scoop">3</div>
-                    <span>Scoops</span>
+                    <span>Porción diaria (Cuchara medidora)</span>
+                </div>
+
+            </div>
+            <h2 class="Calculator__subtitle">Productos</h2>
+            <div class="Calculator__results-images">
+
+                <div class="Calculator__results--item">
+                    <a href="https://gurualimentonatural.com/producto/mensualidad-sustentomarino/" target="_blank"><img
+                            src="https://gurualimentonatural.com/wp-content/uploads/2020/02/SustentoMarino.jpg"
+                            alt="Sustento Marino"></a>
+
+                    <p>Sustento Marino</p>
+
+                    <a href="https://gurualimentonatural.com/producto/mensualidad-sustentomarino/" target="_blank" class="Calculator__button">¡Compra aquí!</a>
+                </div>
+
+                <div class="Calculator__results--item">
+                    <a href="https://gurualimentonatural.com/producto/mensualidad-balanceintegral/" target="_blank"><img
+                            src="https://gurualimentonatural.com/wp-content/uploads/2020/02/BalanceIntegral.jpg"
+                            alt="Balance Integral"></a>
+
+                    <p>Balance Integral</p>
+
+                    <a href="https://gurualimentonatural.com/producto/mensualidad-balanceintegral/" target="_blank" class="Calculator__button">¡Compra aquí!</a>
+                </div>
+
+                <div class="Calculator__results--item">
+                    <a href="https://gurualimentonatural.com/producto/mensualidad-instintocanino/" target="_blank"><img
+                            src="https://gurualimentonatural.com/wp-content/uploads/2020/02/InstintoCanino.jpg"
+                            alt="Instinto Canino"></a>
+
+                    <p>Instinto Canino</p>
+
+                    <a href="https://gurualimentonatural.com/producto/mensualidad-instintocanino/" target="_blank" class="Calculator__button">¡Compra aquí!</a>
+                </div>
+
+                <div class="Calculator__results--item">
+                    <a href="https://gurualimentonatural.com/producto/mensualidad-vitalplus/" target="_blank"><img
+                            src="https://gurualimentonatural.com/wp-content/uploads/2020/02/VitalPlus.jpg"
+                            alt="Vital Plus"></a>
+                      
+                    <p>Vital Plus</p>
+
+                    <a href="https://gurualimentonatural.com/producto/mensualidad-vitalplus/" target="_blank" class="Calculator__button">¡Compra aquí!</a>
                 </div>
             </div>
         </div>

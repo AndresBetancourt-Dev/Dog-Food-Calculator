@@ -1,207 +1,269 @@
-class Calculator{
+class Calculator {
+  constructor() {
+    this.getDOM();
+    this.initVariables();
+    this.handleSubmit();
+  }
 
-    getDOM(){
-        this.petSize = document.querySelector('#petSize');
-        this.petSizeError = document.querySelector('#petSize-error');
-        this.petActivity = document.querySelector('#petActivity');
-        this.petActivityError = document.querySelector('#petActivity-error');
-        this.petAge = document.querySelector('#petAge');
-        this.petAgeError = document.querySelector('#petAge-error');
-        this.results = document.querySelector('.Calculator__results');
-        this.petButton = document.querySelector('.Calculator__button');  
-        this.scoop = document.querySelector('#scoop');
-        this.foodAmount = document.querySelector('#foodAmount');
-        this.portion = document.querySelector('#portion');
-        this.monthlyServing = document.querySelector('#monthly');
-    
-        this.petSize.onchange = ()=>{
-            this.handleChange()
-        } 
-        this.petActivity.onchange = ()=>{
-            this.handleChange()
-        } 
-        this.petAge.onchange = ()=>{
-            this.handleChange()
-        } 
+  getDOM() {
+    this.petSize = document.querySelector("#petSize");
+    this.petSizeError = document.querySelector("#petSize-error");
+    this.petCastrated = document.querySelector("#petCastrated");
+    this.petCastratedError = document.querySelector("#petCastrated-error");
+    this.petAge = document.querySelector("#petAge");
+    this.petAgeError = document.querySelector("#petAge-error");
+
+    this.castratedContainer = document.querySelector("#Castrated");
+    this.results = document.querySelector(".Calculator__results");
+    this.petButton = document.querySelector(".Calculator__button");
+    this.scoop = document.querySelector("#scoop");
+    this.foodAmount = document.querySelector("#foodAmount");
+    this.portion = document.querySelector("#portion");
+
+    this.petSize.onchange = () => {
+      this.handleChange();
+    };
+    this.petCastrated.onchange = () => {
+      this.handleChange();
+    };
+    this.petAge.onchange = () => {
+      this.handleChange();
+      this.isCastrable();
+    };
+  }
+
+  initVariables() {
+    this.errorMessages = [
+      "¡Error! No se seleccionó el tamaño o digito un valor incorrecto",
+      "¡Error! No se seleccionó si es castrado o no.",
+      "!Error! No se seleccionó la edad.",
+    ];
+    this.scoops = 33.25;
+    this.days = 30;
+    this.increment = 9;
+    this.kilogram = 1000;
+  }
+
+  handleChange() {
+    this.results.style.maxHeight = "0px";
+  }
+
+  handleSubmit() {
+    this.petButton.onclick = (event) => {
+      event.preventDefault();
+      if (this.validData()) {
+        this.calculate();
+        this.results.style.maxHeight = this.results.scrollHeight + "px";
+      }
+    };
+  }
+
+  isCastrable() {
+    if (this.isAdult()) {
+      this.castratedContainer.style.maxHeight =
+        this.castratedContainer.scrollHeight + 100 + "px";
+    } else {
+      this.petCastrated.value = "none";
+      this.castratedContainer.style.maxHeight = "0px";
     }
+  }
 
-    initVariables(){
-        this.errorMessages = [
-            "¡Error! No se seleccionó el tamaño o digito un valor incorrecto",
-            "¡Error! No se seleccionó la actividad.",
-            "!Error! No se seleccionó la edad."
-        ];
-        this.scoops = 35;
-        this.days = 30;
-        this.increment = 15;
-        this.kilogram = 1000;
+  cancelErrors() {
+    this.petSizeError.innerHTML = "";
+    this.petCastratedError.innerHTML = "";
+    this.petAgeError.innerHTML = "";
+  }
 
+  validData = () => {
+    const invalid = "none";
+    this.cancelErrors();
+    if (this.petSize.value <= 0 || this.petSize.value > 50) {
+      this.petSizeError.innerHTML = this.errorMessages[0];
+      return false;
     }
-
-    handleChange(){
-        this.results.style.maxHeight = '0px';
+    if (this.isAdult()) {
+      if (this.petCastrated.value === invalid) {
+        this.petCastratedError.innerHTML = this.errorMessages[1];
+        return false;
+      }
     }
-
-    handleSubmit(){
-        this.petButton.onclick = (event) =>{
-            event.preventDefault();
-            if(this.validData()){
-                this.calculate();
-                this.results.style.maxHeight = this.results.scrollHeight+'px'
-            }
-        }
+    if (this.petAge.value === invalid) {
+      this.petAgeError.innerHTML = this.errorMessages[2];
+      return false;
     }
+    this.cancelErrors();
+    return true;
+  };
 
-    validData = () => {
-        const invalid = "none";
-        this.cancelErrors();
-        if(this.petSize.value <= 0 || this.petSize.value > 50) {this.petSizeError.innerHTML = this.errorMessages[0]; return false;}
-        if(this.petActivity.value === invalid) {this.petActivityError.innerHTML = this.errorMessages[1]; return false;}
-        if(this.petAge.value === invalid) {this.petAgeError.innerHTML = this.errorMessages[2]; return false;}
-        this.cancelErrors();
-        return true;
+  calculate() {
+    let portioningPercentage = this.getPortioningPercentage();
+    let activityValue = this.getActivityValue();
+
+    let dailyPortion = this.getDailyPortion(
+      portioningPercentage,
+      activityValue
+    );
+    let monthlyPortion = this.getMonthlyPortion(dailyPortion);
+
+    let monthlyKilograms = this.getMonthlyKilograms(monthlyPortion);
+    let scoopsQuantity = this.getScoopsQuantity(dailyPortion);
+
+    this.portion.innerHTML = dailyPortion;
+    this.foodAmount.innerHTML = `${monthlyKilograms} Kg`;
+    this.scoop.innerHTML = scoopsQuantity;
+  }
+
+  getPortioningPercentage() {
+    if (this.isBaby()) {
+      return 2.8;
+    } else if (this.isKid()) {
+      return 1.7;
+    } else if (this.isTeenager()) {
+      return 1;
+    } else if (this.isAdult()) {
+      return 1;
     }
+  }
 
-    cancelErrors(){
-        this.petSizeError.innerHTML = "";
-        this.petActivityError.innerHTML = "";
-        this.petAgeError.innerHTML = "";
+  isBaby = () => this.petAge.value === "Bebe";
+  isKid = () => this.petAge.value === "Niño";
+  isTeenager = () => this.petAge.value === "Adolescente";
+  isAdult = () => this.petAge.value === "Adulto";
+
+  getActivityValue() {
+    if (this.isAdult()) {
+      if (this.notCastrated()) {
+        this.increment = 11;
+        return 6;
+      }
     }
+    this.increment = 9;
+    return 6;
+  }
 
-    calculate(){
-        let portioningPercentage = this.getPortioningPercentage();
-        let activityValue = this.getActivityValue();
+  castrated = () => this.petCastrated.value === "YES";
+  notCastrated = () => this.petCastrated.value === "NO";
 
-        let dailyPortion = this.getDailyPortion(portioningPercentage,activityValue);
-        let monthlyPortion = this.getMonthlyPortion(dailyPortion);
+  getDailyPortion = (portioningPercentage, activityValue) =>
+    Math.round(this.getDailyValue() * portioningPercentage);
+  getMonthlyPortion = (dailyPortion) => dailyPortion * this.days;
 
-        let monthlyKilograms = this.getMonthlyKilograms(monthlyPortion);
-        let scoopsQuantity = this.getScoopsQuantity(dailyPortion);
-
-        this.portion.innerHTML = dailyPortion;
-        this.monthlyServing.innerHTML = monthlyPortion;
-        this.foodAmount.innerHTML = `${monthlyKilograms} Kg`;
-        this.scoop.innerHTML = scoopsQuantity;
+  getMonthlyKilograms(monthlyPortion) {
+    let kilograms = monthlyPortion / this.kilogram;
+    let decimals = kilograms.toString().split(".");
+    if (decimals.length <= 1) {
+      return kilograms;
     }
-
-    getMonthlyKilograms(monthlyPortion){
-        let kilograms = (monthlyPortion/this.kilogram);
-        let decimals = kilograms.toString().split('.');
-        if (decimals.length <= 1){
-            return kilograms;
+    if (decimals[1].length <= 1) {
+      if (decimals[1] >= 5) {
+        if (decimals[1] >= 7.5) {
+          return parseInt(decimals[0]) + 1;
+        } else {
+          return decimals[0].concat(".", 5);
         }
-        if(decimals[1].length <= 1){
-            if(decimals[1] >= 5){
-                if(decimals[1] >= 7.5){
-                    return parseInt(decimals[0])+1;
-                }else{
-                    return decimals[0].concat('.',5);
-                }
-            }else{
-                if(decimals[1]>=2.5){
-                    return decimals[0].concat('.',5);
-                }else{
-                    return decimals[0];
-                }
-            }
+      } else {
+        if (decimals[1] >= 2.5) {
+          return decimals[0].concat(".", 5);
+        } else {
+          return decimals[0];
         }
-        if(decimals[1].length>=2){
-            if(decimals[1].substr(0,2) >= 50){
-                
-                if(decimals[1].substr(0,2) >= 75){
-                    
-                    return parseInt(decimals[0])+1;
-                }else{
-                    return decimals[0].concat('.',5);
-                }
-            }else{
-                if(decimals[1].substr(0,2) >=25){
-                    return decimals[0].concat('.',5);
-                }else{
-                    return decimals[0];
-                }
-            }
-        }   
+      }
     }
-
-    getScoopsQuantity(dailyPortion){
-        let scoopQuantity = (dailyPortion/this.scoops)
-        if(scoopQuantity % 1 == 0){
-            return scoopQuantity;
+    if (decimals[1].length >= 2) {
+      if (decimals[1].substr(0, 2) >= 50) {
+        if (decimals[1].substr(0, 2) >= 75) {
+          return parseInt(decimals[0]) + 1;
+        } else {
+          return decimals[0].concat(".", 5);
         }
-        let scoopValues = scoopQuantity.toFixed(2).split('.');
-
-        if(scoopValues[1]>=1 && scoopValues[1]<12.5){
-            return scoopQuantity;
+      } else {
+        if (decimals[1].substr(0, 2) >= 25) {
+          return decimals[0].concat(".", 5);
+        } else {
+          return decimals[0];
         }
-        if(scoopValues[1]>=12.5 && scoopValues[1]<25){
-            return scoopValues[0]+" 1/4";
-        }
-        if(scoopValues[1]>=25 && scoopValues[1]<37.5){
-            return scoopValues[0]+" 1/4";
-        }
-        if(scoopValues[1]>=37.5 && scoopValues[1]<50){
-            return scoopValues[0]+" 1/2";
-        }
-        if(scoopValues[1]>=50 && scoopValues[1]<62.5){
-            return scoopValues[0]+" 1/2";
-        }
-        if(scoopValues[1]>=62.5 && scoopValues[1]<75){
-            return scoopValues[0]+" 3/4";
-        }
-        if(scoopValues[1]>=75 && scoopValues[1]<87.5){
-            return scoopValues[0]+" 3/4";
-        }
-        if(scoopValues[1]>=87.5){
-            return parseFloat(scoopValues[0])+1;
-        }
-        
+      }
     }
+  }
 
+  getScoopsQuantity(dailyPortion) {
+    let scoopQuantity = dailyPortion / this.scoops;
+    if (scoopQuantity % 1 == 0) {
+      return scoopQuantity;
+    }
+    let scoopValues = scoopQuantity.toFixed(1).split(".");
+    if (scoopValues[1] == 0) {
+      return Math.round(scoopQuantity);
+    }
+    if (scoopValues[1] > 0 && scoopValues[1] <= 2.5) {
+      return scoopValues[0] + " 1/4";
+    }
+    if (scoopValues[1] > 2.5 && scoopValues[1] <= 5.0) {
+      return scoopValues[0] + " 1/2";
+    }
+    if (scoopValues[1] > 5.0 && scoopValues[1] <= 7.5) {
+      return scoopValues[0] + " 3/4";
+    }
+    if (scoopValues[1] > 7.5) {
+      return parseFloat(scoopValues[0]) + 1;
+    }
+  }
 
+  getDailyValue() {
+    let accumulated = this.getActivityValue();
+    let auxiliar = this.getActivityValue();
 
-    getDailyPortion = (portioningPercentage,activityValue) => Math.round((activityValue+(this.increment*parseFloat(this.petSize.value)))*portioningPercentage);
-    getMonthlyPortion = (dailyPortion) => dailyPortion*this.days;
-
-    getPortioningPercentage(){
-        if(this.isBaby()){
-            return 2.5;
-        }else if(this.isKid()){
-            return 1.8;
-        }else if(this.isTeenager()){
-            return 1;
-        }else if(this.isAdult()){
-            return 1;
+    for (var i = 1; i <= this.petSize.value; i++) {
+      if (i >= 1 && i <= 5) {
+        if (this.notCastrated()) {
+          accumulated += this.increment;
+          continue;
         }
-    }
-
-    isBaby = () => this.petAge.value === "Bebe";
-    isKid = () => this.petAge.value === "Niño";
-    isTeenager = () => this.petAge.value === "Adolescente";
-    isAdult = () => this.petAge.value === "Adulto";
-
-    getActivityValue(){
-        if(this.lowActivity()){
-            return -5;
-        }else if(this.normalActivity()){
-            return 0;
-        }else if(this.highActivity()){
-            return 5;
+        auxiliar += 11;
+      }
+      if (i >= 6 && i <= 15) {
+        if (this.notCastrated()) {
+          accumulated += this.increment - 1;
+          continue;
         }
+        auxiliar += 10;
+      }
+      if (i >= 16 && i <= 25) {
+        if (this.notCastrated()) {
+          accumulated += this.increment - 2;
+          continue;
+        }
+        auxiliar += 9;
+      }
+      if (i >= 26 && i <= 35) {
+        if (this.notCastrated()) {
+          accumulated += this.increment - 5;
+          continue;
+        }
+        auxiliar += 6;
+      }
+      if (i >= 36 && i <= 50) {
+        if (this.notCastrated()) {
+          accumulated += this.increment - 6;
+          continue;
+        }
+        auxiliar += 5;
+      }
+      if (i >= 17 && i < 37) {
+        accumulated += 6;
+        continue;
+      }
+      if (i >= 37) {
+        accumulated += 5;
+        continue;
+      }
+      accumulated += this.increment;
     }
-
-    normalActivity = () => this.petActivity.value === "Normal";
-    lowActivity = () => this.petActivity.value === "Bajo";
-    highActivity = () => this.petActivity.value === "Alto";
-
-    
-    
-    constructor(){
-        this.getDOM()
-        this.initVariables()
-        this.handleSubmit()
+    if (this.isTeenager()) {
+      return Math.round((accumulated + auxiliar) / 2);
     }
-
+    return accumulated;
+  }
 }
 
-new Calculator;
+new Calculator();
