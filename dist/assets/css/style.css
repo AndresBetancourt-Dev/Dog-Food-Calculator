@@ -87,10 +87,9 @@ a.Calculator__button{
    display: grid;
    grid-template-columns: 1fr;
     width: 80%;
-    background-color: #433185;
+    color: #433185;
     border-radius: 5px;
-    box-shadow: 2px 2px 8px rgba(0,0,0,.5);
-    color: white;
+    box-shadow: 0px 0px 20px rgba(0,0,0,.075);
     font-weight: bold;
     justify-items: center;
     box-sizing: border-box;
@@ -108,8 +107,8 @@ a.Calculator__button{
 .Calculator__results-data{
     display: grid;
     width: 100%;
-    background-color: #433185;
-    box-shadow: 0px 0px 40px rgba(0,0,0,.35);
+    color: #433185;
+    box-shadow: 0px 0px 10px rgba(0,0,0,.125);
     justify-items: center;
     grid-template-columns: repeat(3,1fr);
     padding: 20px;
@@ -128,9 +127,9 @@ a.Calculator__button{
 .Calculator__results-images{
     display: grid;
     width: 100%;
-    background-color: #433185;
+    color: #433185;
     justify-items: center;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(3,1fr);
     padding: 20px;
     grid-gap: 20px
 }
@@ -139,13 +138,20 @@ a.Calculator__button{
     width: 15vw;
     height: 15vw;
     border-radius: 20px;
-    box-shadow: 0px 0px 40px rgba(0,0,0,.35);
+    box-shadow: 0px 0px 10px rgba(0,0,0,.125);
     transition: 2s;
     cursor: pointer;
 }
 .Calculator__results--item img:hover{
     transform: scale(1.1,1.1);
     transition: 2s;
+}
+
+.Calculator__results--item img.scoop-image{
+    width: 40px;
+    height: 40px;
+    box-shadow: none;
+    margin-top: -40px;
 }
 
 @media screen and (max-width: 600px){
