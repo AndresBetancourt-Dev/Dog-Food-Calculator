@@ -1,27 +1,19 @@
-class Calculator {
-  constructor() {
-    this.getDOM();
-    this.initVariables();
-    this.handleSubmit();
-  }
+var petSize = document.querySelector("#petSize");
+    var petSizeError = document.querySelector("#petSize-error");
+    var petCastrated = document.querySelector("#petCastrated");
+    var petCastratedError = document.querySelector("#petCastrated-error");
+    var petAge = document.querySelector("#petAge");
+    var petAgeError = document.querySelector("#petAge-error");
 
-  getDOM() {
-    this.petSize = document.querySelector("#petSize");
-    this.petSizeError = document.querySelector("#petSize-error");
-    this.petCastrated = document.querySelector("#petCastrated");
-    this.petCastratedError = document.querySelector("#petCastrated-error");
-    this.petAge = document.querySelector("#petAge");
-    this.petAgeError = document.querySelector("#petAge-error");
+    var castratedContainer = document.querySelector("#Castrated");
+    var results = document.querySelector(".Calculator__results");
+    var petButton = document.querySelector(".Calculator__button");
+    var scoop = document.querySelector("#scoop");
+    var foodAmount = document.querySelector("#foodAmount");
+    var portion = document.querySelector("#portion");
 
-    this.castratedContainer = document.querySelector("#Castrated");
-    this.results = document.querySelector(".Calculator__results");
-    this.petButton = document.querySelector(".Calculator__button");
-    this.scoop = document.querySelector("#scoop");
-    this.foodAmount = document.querySelector("#foodAmount");
-    this.portion = document.querySelector("#portion");
-
-    this.foodButtons = document.querySelectorAll('.Calculator__redirect');
-    this.foodLinks = [
+    var foodButtons = document.querySelectorAll('.Calculator__redirect');
+    var foodLinks = [
       "https://gurualimentonatural.com/producto/mensualidad-sustentomarino/",
       "https://gurualimentonatural.com/producto/mensualidad-balanceintegral/",
       "https://gurualimentonatural.com/producto/mensualidad-instintocanino/",
@@ -30,149 +22,152 @@ class Calculator {
       "https://gurualimentonatural.com/producto/mensualidad-mix/"
     ];
 
-    this.foodButtons.forEach((button, index)=>{
-      button.addEventListener('click',()=>{
-        if(this.monthlyKilograms){
-          if(this.monthlyKilograms>23.5){
-            button.setAttribute('href',`${this.foodLinks[index]}?attribute_pa_kgs-al-mes=a46`);
+    foodButtons.forEach((button, index)=>{
+      button.addEventListener('click',function(){
+        if(monthlyKilograms){
+          if(monthlyKilograms>23.5){
+            button.setAttribute('href',`${foodLinks[index]}?attribute_pa_kgs-al-mes=a46`);
           }else{
-            button.setAttribute('href',`${this.foodLinks[index]}?attribute_pa_kgs-al-mes=a${this.monthlyKilograms*2-1}`);
+            button.setAttribute('href',`${foodLinks[index]}?attribute_pa_kgs-al-mes=a${monthlyKilograms*2-1}`);
           } 
         }
         
       })
     })
 
-    this.petSize.onchange = () => {
-      this.handleChange();
+    petSize.onchange = function(){
+      handleChange();
     };
-    this.petCastrated.onchange = () => {
-      this.handleChange();
+    petCastrated.onchange = function(){
+      handleChange();
     };
-    this.petAge.onchange = () => {
-      this.handleChange();
-      this.isCastrable();
+    petAge.onchange = () => {
+      handleChange();
+      isCastrable();
     };
+
+
+var errorMessages = [
+  "¡Error! No se seleccionó el tamaño o digito un valor incorrecto",
+  "¡Error! No se seleccionó si es castrado o no.",
+  "!Error! No se seleccionó la edad.",
+];
+var scoops = 33.25;
+var days = 30;
+var increment = 9;
+var kilogram = 1000;
+
+  function Calculator(){
+    handleSubmit();
   }
 
-  initVariables() {
-    this.errorMessages = [
-      "¡Error! No se seleccionó el tamaño o digito un valor incorrecto",
-      "¡Error! No se seleccionó si es castrado o no.",
-      "!Error! No se seleccionó la edad.",
-    ];
-    this.scoops = 33.25;
-    this.days = 30;
-    this.increment = 9;
-    this.kilogram = 1000;
+  function handleChange(){
+    results.style.maxHeight = "0px";
   }
 
-  handleChange() {
-    this.results.style.maxHeight = "0px";
-  }
-
-  handleSubmit() {
-    this.petButton.onclick = (event) => {
+  function handleSubmit(){
+    petButton.onclick = (event) => {
       event.preventDefault();
-      if (this.validData()) {
-        this.calculate();
-        this.results.style.maxHeight = this.results.scrollHeight + "px";
+      if (validData()) {
+        calculate();
+        results.style.maxHeight = results.scrollHeight + "px";
       }
     };
   }
 
-  isCastrable() {
-    if (this.isAdult()) {
-      this.castratedContainer.style.maxHeight =
-        this.castratedContainer.scrollHeight + 100 + "px";
+  function isCastrable(){
+    if (isAdult()) {
+      castratedContainer.style.maxHeight =
+        castratedContainer.scrollHeight + 100 + "px";
     } else {
-      this.petCastrated.value = "none";
-      this.castratedContainer.style.maxHeight = "0px";
+      petCastrated.value = "none";
+      castratedContainer.style.maxHeight = "0px";
     }
   }
 
-  cancelErrors() {
-    this.petSizeError.innerHTML = "";
-    this.petCastratedError.innerHTML = "";
-    this.petAgeError.innerHTML = "";
+  function cancelErrors(){
+    petSizeError.innerHTML = "";
+    petCastratedError.innerHTML = "";
+    petAgeError.innerHTML = "";
   }
 
-  validData = () => {
+  function validData(){
     const invalid = "none";
-    this.cancelErrors();
-    if (this.petSize.value <= 0 || this.petSize.value > 50) {
-      this.petSizeError.innerHTML = this.errorMessages[0];
+    cancelErrors();
+    if (petSize.value <= 0 || petSize.value > 50) {
+      petSizeError.innerHTML = errorMessages[0];
       return false;
     }
-    if (this.isAdult()) {
-      if (this.petCastrated.value === invalid) {
-        this.petCastratedError.innerHTML = this.errorMessages[1];
+    if (isAdult()) {
+      if (petCastrated.value === invalid) {
+        petCastratedError.innerHTML = errorMessages[1];
         return false;
       }
     }
-    if (this.petAge.value === invalid) {
-      this.petAgeError.innerHTML = this.errorMessages[2];
+    if (petAge.value === invalid) {
+      petAgeError.innerHTML = errorMessages[2];
       return false;
     }
-    this.cancelErrors();
+    cancelErrors();
     return true;
   };
 
-  calculate() {
-    let portioningPercentage = this.getPortioningPercentage();
-    let activityValue = this.getActivityValue();
+  function calculate(){
+    let portioningPercentage = getPortioningPercentage();
+    let activityValue = getActivityValue();
 
-    let dailyPortion = this.getDailyPortion(
+    let dailyPortion = getDailyPortion(
       portioningPercentage,
       activityValue
     );
-    let monthlyPortion = this.getMonthlyPortion(dailyPortion);
+    let monthlyPortion = getMonthlyPortion(dailyPortion);
 
-    this.monthlyKilograms = this.getMonthlyKilograms(monthlyPortion);
-    let scoopsQuantity = this.getScoopsQuantity(dailyPortion);
+    monthlyKilograms = getMonthlyKilograms(monthlyPortion);
+    let scoopsQuantity = getScoopsQuantity(dailyPortion);
 
-    this.portion.innerHTML = dailyPortion;
-    this.foodAmount.innerHTML = `${this.monthlyKilograms} Kg`;
-    this.scoop.innerHTML = scoopsQuantity;
+    portion.innerHTML = dailyPortion;
+    foodAmount.innerHTML = `${monthlyKilograms} Kg`;
+    scoop.innerHTML = scoopsQuantity;
   }
 
-  getPortioningPercentage() {
-    if (this.isBaby()) {
+  function getPortioningPercentage(){
+    if (isBaby()) {
       return 2.8;
-    } else if (this.isKid()) {
+    } else if (isKid()) {
       return 1.7;
-    } else if (this.isTeenager()) {
+    } else if (isTeenager()) {
       return 1;
-    } else if (this.isAdult()) {
+    } else if (isAdult()) {
       return 1;
     }
   }
 
-  isBaby = () => this.petAge.value === "Bebe";
-  isKid = () => this.petAge.value === "Niño";
-  isTeenager = () => this.petAge.value === "Adolescente";
-  isAdult = () => this.petAge.value === "Adulto";
+  function isBaby(){ return petAge.value === "Bebe"};
+  function isKid(){ return petAge.value === "Niño"};
+  function isTeenager(){ return petAge.value === "Adolescente"};
+  function isAdult(){ return petAge.value === "Adulto"};
 
-  getActivityValue() {
-    if (this.isAdult()) {
-      if (this.notCastrated()) {
-        this.increment = 11;
+  function getActivityValue(){
+    if (isAdult()) {
+      if (notCastrated()) {
+        increment = 11;
         return 6;
       }
     }
-    this.increment = 9;
+    increment = 9;
     return 6;
   }
 
-  castrated = () => this.petCastrated.value === "YES";
-  notCastrated = () => this.petCastrated.value === "NO";
+  function castrated(){ return petCastrated.value === "YES"};
+  function notCastrated(){ return petCastrated.value === "NO";};
 
-  getDailyPortion = (portioningPercentage, activityValue) =>
-    Math.round(this.getDailyValue() * portioningPercentage);
-  getMonthlyPortion = (dailyPortion) => dailyPortion * this.days;
+  function getDailyPortion(portioningPercentage, activityValue){
+    return Math.round(getDailyValue() * portioningPercentage);
+  };
+    function getMonthlyPortion(dailyPortion){ return dailyPortion * days};
 
-  getMonthlyKilograms(monthlyPortion) {
-    let kilograms = monthlyPortion / this.kilogram;
+  function getMonthlyKilograms(monthlyPortion) {
+    let kilograms = monthlyPortion / kilogram;
     let decimals = kilograms.toString().split(".");
     if (decimals.length <= 1) {
       return kilograms;
@@ -209,8 +204,8 @@ class Calculator {
     }
   }
 
-  getScoopsQuantity(dailyPortion) {
-    let scoopQuantity = dailyPortion / this.scoops;
+  function getScoopsQuantity(dailyPortion) {
+    let scoopQuantity = dailyPortion / scoops;
     if (scoopQuantity % 1 == 0) {
       return scoopQuantity;
     }
@@ -232,42 +227,42 @@ class Calculator {
     }
   }
 
-  getDailyValue() {
-    let accumulated = this.getActivityValue();
-    let auxiliar = this.getActivityValue();
+  function getDailyValue() {
+    let accumulated = getActivityValue();
+    let auxiliar = getActivityValue();
 
-    for (var i = 1; i <= this.petSize.value; i++) {
+    for (var i = 1; i <= petSize.value; i++) {
       if (i >= 1 && i <= 5) {
-        if (this.notCastrated()) {
-          accumulated += this.increment;
+        if (notCastrated()) {
+          accumulated += increment;
           continue;
         }
         auxiliar += 11;
       }
       if (i >= 6 && i <= 15) {
-        if (this.notCastrated()) {
-          accumulated += this.increment - 1;
+        if (notCastrated()) {
+          accumulated += increment - 1;
           continue;
         }
         auxiliar += 10;
       }
       if (i >= 16 && i <= 25) {
-        if (this.notCastrated()) {
-          accumulated += this.increment - 2;
+        if (notCastrated()) {
+          accumulated += increment - 2;
           continue;
         }
         auxiliar += 9;
       }
       if (i >= 26 && i <= 35) {
-        if (this.notCastrated()) {
-          accumulated += this.increment - 5;
+        if (notCastrated()) {
+          accumulated += increment - 5;
           continue;
         }
         auxiliar += 6;
       }
       if (i >= 36 && i <= 50) {
-        if (this.notCastrated()) {
-          accumulated += this.increment - 6;
+        if (notCastrated()) {
+          accumulated += increment - 6;
           continue;
         }
         auxiliar += 5;
@@ -280,13 +275,13 @@ class Calculator {
         accumulated += 5;
         continue;
       }
-      accumulated += this.increment;
+      accumulated += increment;
     }
-    if (this.isTeenager()) {
+    if (isTeenager()) {
       return Math.round((accumulated + auxiliar) / 2);
     }
     return accumulated;
   }
-}
 
-new Calculator();
+
+Calculator();
