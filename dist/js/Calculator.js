@@ -29,9 +29,9 @@ for (index = 0; index < foodButtons.length; index++) {
     console.log(event)
     if (monthlyKilograms) {
       if (monthlyKilograms > 23.5) {
-        window.location = foodLinks[event.target.value] + "?attribute_pa_kgs-al-mes=a46";
+        window.open(foodLinks[event.target.value] + "?attribute_pa_kgs-al-mes=a46",'_blank');
       } else {
-        window.location = foodLinks[event.target.value] +"?attribute_pa_kgs-al-mes=a" +(monthlyKilograms * 2 - 1);
+        window.open(foodLinks[event.target.value] +"?attribute_pa_kgs-al-mes=a" +(monthlyKilograms * 2 - 1),'_blank');
         ;
       }
     }
