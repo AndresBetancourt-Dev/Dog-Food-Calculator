@@ -20,6 +20,29 @@ class Calculator {
     this.foodAmount = document.querySelector("#foodAmount");
     this.portion = document.querySelector("#portion");
 
+    this.foodButtons = document.querySelectorAll('.Calculator__redirect');
+    this.foodLinks = [
+      "https://gurualimentonatural.com/producto/mensualidad-sustentomarino/",
+      "https://gurualimentonatural.com/producto/mensualidad-balanceintegral/",
+      "https://gurualimentonatural.com/producto/mensualidad-instintocanino/",
+      "https://gurualimentonatural.com/producto/mensualidad-vitalplus/",
+      "https://gurualimentonatural.com/producto/mensualidad-vidaintrepida/",
+      "https://gurualimentonatural.com/producto/mensualidad-mix/"
+    ];
+
+    this.foodButtons.forEach((button, index)=>{
+      button.addEventListener('click',()=>{
+        if(this.monthlyKilograms){
+          if(this.monthlyKilograms>23.5){
+            button.setAttribute('href',`${this.foodLinks[index]}?attribute_pa_kgs-al-mes=a46`);
+          }else{
+            button.setAttribute('href',`${this.foodLinks[index]}?attribute_pa_kgs-al-mes=a${this.monthlyKilograms*2-1}`);
+          } 
+        }
+        
+      })
+    })
+
     this.petSize.onchange = () => {
       this.handleChange();
     };
@@ -105,11 +128,11 @@ class Calculator {
     );
     let monthlyPortion = this.getMonthlyPortion(dailyPortion);
 
-    let monthlyKilograms = this.getMonthlyKilograms(monthlyPortion);
+    this.monthlyKilograms = this.getMonthlyKilograms(monthlyPortion);
     let scoopsQuantity = this.getScoopsQuantity(dailyPortion);
 
     this.portion.innerHTML = dailyPortion;
-    this.foodAmount.innerHTML = `${monthlyKilograms} Kg`;
+    this.foodAmount.innerHTML = `${this.monthlyKilograms} Kg`;
     this.scoop.innerHTML = scoopsQuantity;
   }
 
