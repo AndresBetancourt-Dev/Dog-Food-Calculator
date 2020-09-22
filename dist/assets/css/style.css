@@ -69,7 +69,7 @@
     margin-bottom: 20px;
 }
 
-.Calculator__results > .Calculator__button{
+.Calculator__redirect{
     text-decoration: none;
     padding: 10px;
     width: 100%;
@@ -172,7 +172,7 @@
         height: 25vw;
     }
 
-    .Calculator__results--item > button.Calculator__button{
+    .Calculator__redirect{
         font-size: 3.75vw;
     }
 }

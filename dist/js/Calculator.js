@@ -1,19 +1,25 @@
+
+//Obtaining the DOM from the HTML
 var petSize = document.querySelector("#petSize");
 var petSizeError = document.getElementById("petSize-error");
 var petCastrated = document.querySelector("#petCastrated");
 var petCastratedError = document.querySelector("#petCastrated-error");
 var petAge = document.querySelector("#petAge");
 var petAgeError = document.querySelector("#petAge-error");
-
 var castratedContainer = document.querySelector("#Castrated");
 var results = document.querySelector(".Calculator__results");
 var petButton = document.getElementById("Calculator__button");
 var scoop = document.querySelector("#scoop");
 var foodAmount = document.querySelector("#foodAmount");
 var portion = document.querySelector("#portion");
-
 var foodButtons = document.querySelectorAll(".Calculator__redirect");
-var foodLinks = [
+
+//Variables
+const scoops = 33.25;
+const days = 30;
+var increment = 9;
+const kilogram = 1000;
+const foodLinks = [
   "https://gurualimentonatural.com/producto/mensualidad-sustentomarino/",
   "https://gurualimentonatural.com/producto/mensualidad-balanceintegral/",
   "https://gurualimentonatural.com/producto/mensualidad-instintocanino/",
@@ -21,9 +27,13 @@ var foodLinks = [
   "https://gurualimentonatural.com/producto/mensualidad-vidaintrepida/",
   "https://gurualimentonatural.com/producto/mensualidad-mix/",
 ];
+const errorMessages = [
+  "¡Error! No se seleccionó el tamaño o digito un valor incorrecto",
+  "¡Error! No se seleccionó si es castrado o no.",
+  "!Error! No se seleccionó la edad.",
+];
 
-
-
+//Adding link to each button
 for (index = 0; index < foodButtons.length; index++) {
   foodButtons[index].addEventListener("click", function (event) {
     console.log(event)
@@ -38,10 +48,10 @@ for (index = 0; index < foodButtons.length; index++) {
   });
 }
 
+//Adding listener to Select's
 petSize.addEventListener("change", function () {
   handleChange();
 });
-
 petCastrated.addEventListener("change", function () {
   handleChange();
 });
@@ -50,33 +60,10 @@ petAge.addEventListener("change", function () {
   isCastrable();
 });
 
-var errorMessages = [
-  "¡Error! No se seleccionó el tamaño o digito un valor incorrecto",
-  "¡Error! No se seleccionó si es castrado o no.",
-  "!Error! No se seleccionó la edad.",
-];
-var scoops = 33.25;
-var days = 30;
-var increment = 9;
-var kilogram = 1000;
 
-function Calculator() {
-  handleSubmit();
-}
-
+//On change of any selects it hides the Results and displays/undisplay another select if it's an Adult
 function handleChange() {
   results.style.maxHeight = "0px";
-}
-
-function handleSubmit() {
-  
-  petButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    if (validData()) {
-      calculate();
-      results.style.maxHeight = results.scrollHeight + "px";
-    }
-  });
 }
 
 function isCastrable() {
@@ -89,17 +76,48 @@ function isCastrable() {
   }
 }
 
+
+
+//Theory the main Object/Method to be called, it uses most of the Variables.
+function Calculator() {
+  handleSubmit();
+}
+
+
+//Primary function
+function handleSubmit() {
+  petButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    if (validData()) {
+      calculate();
+      results.style.maxHeight = results.scrollHeight + "px";
+    }
+  });
+}
+
+
 function cancelErrors() {
   petSizeError.innerHTML = "";
   petCastratedError.innerHTML = "";
   petAgeError.innerHTML = "";
 }
 
+//Validates if requirements are met within the calculator
 function validData() {
   const invalid = "none";
   cancelErrors();
   if (petSize.value <= 0 || petSize.value > 50) {
-    petSizeError.innerHTML = errorMessages[0];
+    petSizeError.innerHTML = errorMessages[0]+" - Rango [0-50]";
+    return false;
+  }
+
+  if(isBaby() && petSize.value>20){
+    petSizeError.innerHTML = errorMessages[0]+" - Rango [0-20]";
+    return false;
+  }
+
+  if(isKid() && petSize.value>35){
+    petSizeError.innerHTML = errorMessages[0]+" - Rango [0-35]";
     return false;
   }
 
@@ -109,6 +127,7 @@ function validData() {
       return false;
     }
   }
+
   if (petAge.value === invalid) {
     petAgeError.innerHTML = errorMessages[2];
     return false;
@@ -117,16 +136,14 @@ function validData() {
   return true;
 }
 
+//As it names describe it calculates, based on getting Values from other functions
 function calculate() {
   let portioningPercentage = getPortioningPercentage();
   let activityValue = getActivityValue();
-
   let dailyPortion = getDailyPortion(portioningPercentage, activityValue);
   let monthlyPortion = getMonthlyPortion(dailyPortion);
-
   monthlyKilograms = getMonthlyKilograms(monthlyPortion);
   let scoopsQuantity = getScoopsQuantity(dailyPortion);
-
   portion.innerHTML = dailyPortion;
   foodAmount.innerHTML = monthlyKilograms+" Kg";
   scoop.innerHTML = scoopsQuantity;
@@ -144,6 +161,8 @@ function getPortioningPercentage() {
   }
 }
 
+//Conditions used a lot in the code that helps encapsulating the condition in a function to make it
+//more readable when used.
 function isBaby() {
   return petAge.value === "Bebe";
 }
@@ -156,7 +175,14 @@ function isTeenager() {
 function isAdult() {
   return petAge.value === "Adulto";
 }
+function castrated() {
+  return petCastrated.value === "YES";
+}
+function notCastrated() {
+  return petCastrated.value === "NO";
+}
 
+//All get functions from the Calculator
 function getActivityValue() {
   if (isAdult()) {
     if (notCastrated()) {
@@ -168,20 +194,12 @@ function getActivityValue() {
   return 6;
 }
 
-function castrated() {
-  return petCastrated.value === "YES";
-}
-function notCastrated() {
-  return petCastrated.value === "NO";
-}
-
 function getDailyPortion(portioningPercentage, activityValue) {
   return Math.round(getDailyValue() * portioningPercentage);
 }
 function getMonthlyPortion(dailyPortion) {
   return dailyPortion * days;
 }
-
 function getMonthlyKilograms(monthlyPortion) {
   let kilograms = monthlyPortion / kilogram;
   let decimals = kilograms.toString().split(".");
@@ -219,7 +237,6 @@ function getMonthlyKilograms(monthlyPortion) {
     }
   }
 }
-
 function getScoopsQuantity(dailyPortion) {
   let scoopQuantity = dailyPortion / scoops;
   if (scoopQuantity % 1 == 0) {
@@ -243,6 +260,13 @@ function getScoopsQuantity(dailyPortion) {
   }
 }
 
+//Since it's probably the longest function in the program i will explain it.
+//This function could be highly optimized using reduce but for compatibility issues i would rather not use it this time.
+//Basically for each Kilogram of the Pet we must iterate to get the cumulative based on Grams per Kilogram of the Pet
+//It's a simple accumulation for, but the trick it's when the pet it's either a Non-Castrated Adult, a Teenager or when the iterator reaches a specific range of number, the values of increment start decreasing.
+//For example in the case of a Non-Castrated adult it can eat more food so the daily increment it's higher than a Castrated one.
+//And we need two accumulations in case the dog it's a teenager because it's calculated based on the average between
+//the daily value from a Castrated Adult dog, and Non-Castrated Adult dog.
 function getDailyValue() {
   let accumulated = getActivityValue();
   let auxiliar = getActivityValue();
@@ -299,4 +323,5 @@ function getDailyValue() {
   return accumulated;
 }
 
+//Calling the maing function so the app it's setted up.
 Calculator();
