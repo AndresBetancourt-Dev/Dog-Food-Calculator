@@ -1,4 +1,3 @@
-
 //Obtaining the DOM from the HTML
 var petSize = document.querySelector("#petSize");
 var petSizeError = document.getElementById("petSize-error");
@@ -12,7 +11,7 @@ var petButton = document.getElementById("Calculator__button");
 var scoop = document.querySelector("#scoop");
 var foodAmount = document.querySelector("#foodAmount");
 var portion = document.querySelector("#portion");
-var fraction = document.getElementById('fraction');
+var fraction = document.getElementById("fraction");
 var foodButtons = document.querySelectorAll(".Calculator__redirect");
 
 //Variables
@@ -37,13 +36,20 @@ const errorMessages = [
 //Adding link to each button
 for (index = 0; index < foodButtons.length; index++) {
   foodButtons[index].addEventListener("click", function (event) {
-    console.log(event)
+    console.log(event);
     if (monthlyKilograms) {
       if (monthlyKilograms > 23.5) {
-        window.open(foodLinks[event.target.value] + "?attribute_pa_kgs-al-mes=a46",'_blank');
+        window.open(
+          foodLinks[event.target.value] + "?attribute_pa_kgs-al-mes=a46",
+          "_blank"
+        );
       } else {
-        window.open(foodLinks[event.target.value] +"?attribute_pa_kgs-al-mes=a" +(monthlyKilograms * 2 - 1),'_blank');
-        ;
+        window.open(
+          foodLinks[event.target.value] +
+            "?attribute_pa_kgs-al-mes=a" +
+            (monthlyKilograms * 2 - 1),
+          "_blank"
+        );
       }
     }
   });
@@ -61,7 +67,6 @@ petAge.addEventListener("change", function () {
   isCastrable();
 });
 
-
 //On change of any selects it hides the Results and displays/undisplay another select if it's an Adult
 function handleChange() {
   results.style.maxHeight = "0px";
@@ -77,13 +82,10 @@ function isCastrable() {
   }
 }
 
-
-
 //Theory the main Object/Method to be called, it uses most of the Variables.
 function Calculator() {
   handleSubmit();
 }
-
 
 //Primary function
 function handleSubmit() {
@@ -96,7 +98,6 @@ function handleSubmit() {
   });
 }
 
-
 function cancelErrors() {
   petSizeError.innerHTML = "";
   petCastratedError.innerHTML = "";
@@ -107,18 +108,19 @@ function cancelErrors() {
 function validData() {
   const invalid = "none";
   cancelErrors();
+
+  if (isBaby() && (petSize.value <= 0 || petSize.value > 20)) {
+    petSizeError.innerHTML = errorMessages[0] + " - Rango [1-20]";
+    return false;
+  }
+
+  if (isKid() && (petSize.value <= 0 || petSize.value > 35)) {
+    petSizeError.innerHTML = errorMessages[0] + " - Rango [1-35]";
+    return false;
+  }
+
   if (petSize.value <= 0 || petSize.value > 50) {
-    petSizeError.innerHTML = errorMessages[0]+" - Rango [1-50]";
-    return false;
-  }
-
-  if(isBaby() && petSize.value>20){
-    petSizeError.innerHTML = errorMessages[0]+" - Rango [1-20]";
-    return false;
-  }
-
-  if(isKid() && petSize.value>35){
-    petSizeError.innerHTML = errorMessages[0]+" - Rango [1-35]";
+    petSizeError.innerHTML = errorMessages[0] + " - Rango [1-50]";
     return false;
   }
 
@@ -145,16 +147,15 @@ function calculate() {
   let monthlyPortion = getMonthlyPortion(dailyPortion);
   monthlyKilograms = getMonthlyKilograms(monthlyPortion);
   let scoopsQuantity = getScoopsQuantity(dailyPortion);
-  console.log(scoopsQuantity)
+  console.log(scoopsQuantity);
   portion.innerHTML = dailyPortion;
   foodAmount.innerHTML = monthlyKilograms;
   scoop.innerHTML = scoopsQuantity[0];
-  if(scoopsQuantity[1]){
+  if (scoopsQuantity[1]) {
     fraction.innerHTML = scoopsQuantity[1];
-  }else{
+  } else {
     fraction.innerHTML = "";
   }
-  
 }
 
 function getPortioningPercentage() {
@@ -255,13 +256,13 @@ function getScoopsQuantity(dailyPortion) {
     return [Math.round(scoopQuantity)];
   }
   if (scoopValues[1] > 0 && scoopValues[1] <= 2.5) {
-    return [scoopValues[0],"1/4"];
+    return [scoopValues[0], "1/4"];
   }
   if (scoopValues[1] > 2.5 && scoopValues[1] <= 5.0) {
-    return [scoopValues[0],"1/2"];
+    return [scoopValues[0], "1/2"];
   }
   if (scoopValues[1] > 5.0 && scoopValues[1] <= 7.5) {
-    return [scoopValues[0],"3/4"];
+    return [scoopValues[0], "3/4"];
   }
   if (scoopValues[1] > 7.5) {
     return [parseFloat(scoopValues[0]) + 1];
