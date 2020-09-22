@@ -108,17 +108,17 @@ function validData() {
   const invalid = "none";
   cancelErrors();
   if (petSize.value <= 0 || petSize.value > 50) {
-    petSizeError.innerHTML = errorMessages[0]+" - Rango [0-50]";
+    petSizeError.innerHTML = errorMessages[0]+" - Rango [1-50]";
     return false;
   }
 
   if(isBaby() && petSize.value>20){
-    petSizeError.innerHTML = errorMessages[0]+" - Rango [0-20]";
+    petSizeError.innerHTML = errorMessages[0]+" - Rango [1-20]";
     return false;
   }
 
   if(isKid() && petSize.value>35){
-    petSizeError.innerHTML = errorMessages[0]+" - Rango [0-35]";
+    petSizeError.innerHTML = errorMessages[0]+" - Rango [1-35]";
     return false;
   }
 
