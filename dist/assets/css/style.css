@@ -3,6 +3,10 @@
     font-family: 'Delius';
 }
 
+.Calculator__main *{
+    box-sizing: border-box;
+}
+
 .Calculator__main{
     font-family: 'Delius', sans-serif;
     display: grid;
@@ -10,19 +14,17 @@
     justify-items: center;
 }
 
-.Calculator__main *{
-    box-sizing: border-box;
-}
-
 .Calculator__title{
     color: #81c35a;
     text-align: center;
-    font-size: 2.25rem;
+    font-size: 2.5rem;
 }
 
 .Calculator__subtitle{
-    font-size: 1.75rem;
+    font-size: 2rem;
 }
+
+/*Selects*/
 
 .Calculator__select{
     display: grid;
@@ -39,25 +41,18 @@
     align-content: center;
 }
 
-.Calculator__select select{
+.Calculator__select select,.Calculator__select input{
     font-family: 'Delius', sans-serif;
     width: 100%;
     padding : 5px;
     border-radius: 7.5px;
     font-size: large;
-}
-
-#petSize{
-    font-family: 'Delius', sans-serif;
-    width: 100%;
-    padding : 5px;
-    border-radius: 7.5px;
-    font-size: large;
+    outline: none;
 }
 
 .Calculator__button{
     font-family: 'Delius', sans-serif;
-    font-size: larger;
+    font-size: 1.75em;
     font-weight: bolder;
     border: none;
     border-radius: 5px;
@@ -67,25 +62,23 @@
     color: white;
     background-color:#7dd56c;
     margin-bottom: 20px;
+    outline: none;
 }
 
 .Calculator__redirect{
-    text-decoration: none;
     padding: 10px;
     width: 100%;
-    font-size: 1.5vw;
+    font-size: 1.25vw;
 }
 
-
 [id$="error"]{
-    box-sizing: border-box;
     padding-top: 20px;
     color: crimson;
 }
 
 .Calculator__results{
-   display: grid;
-   grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: 1fr;
     width: 80%;
     color: #433185;
     border-radius: 5px;
@@ -116,13 +109,18 @@
     margin-bottom: 30px;
 }
 
+#scoop,#foodAmount,#portion{
+    font-size: 1.5em;
+}
+
+#fraction{
+    font-size: .75em;
+}
+
 .Calculator__results--item{
     text-align: center;
     font-size: 1.25rem;
 }
-
-
-
 
 .Calculator__results-images{
     display: grid;

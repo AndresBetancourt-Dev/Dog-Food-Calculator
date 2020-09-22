@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dog Food Calculator</title>
     <link rel="stylesheet" href="dist/assets/css/style.css">
+    <link rel="shortcut icon" href="dist/assets/images/logo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -15,7 +16,7 @@
         </h2>
         <div class="Calculator__select">
             <label for="petSize">Peso (kg)</label>
-            <input type="number" name="petSize" id="petSize" min="0" max="50">
+            <input placeholder="Ingrese un número" type="number" name="petSize" id="petSize" min="0" max="50">
             <span id="petSize-error"></span>
         </div>
 
@@ -46,48 +47,36 @@
             <h2 class="Calculator__subtitle">Resultados</h2>
             <div class="Calculator__results-data">
                 <div class="Calculator__results--item">
-                    <div id="portion">1</div>
+                    <div id="portion"></div>
                     <span>Gurú al día (gr)</span>
                 </div>
                 <div class="Calculator__results--item">
-                    <div id="foodAmount">2</div>
+                    <div id="foodAmount"></div>
                     <span>Mensualidad Gurú (Kg)</span>
                 </div>
                 <div class="Calculator__results--item">
                     <div>
                         <img class="scoop-image" src="dist/assets/images/scoop.png" alt="">
-                        <span id="scoop">3</span>
-             
+                        <span id="scoop"></span>
+                        <span id="fraction"></span>
                     </div>
-             
+
                     <span>Porción diaria (Cuchara medidora)</span>
-                   
+
                 </div>
 
             </div>
-            <h2 class="Calculator__subtitle">Productos</h2>
+            <h2 class="Calculator__subtitle">Escoge tu mensualidad</h2>
             <div class="Calculator__results-images">
-
                 <div class="Calculator__results--item">
-                    <a href="https://gurualimentonatural.com/producto/mensualidad-sustentomarino/" target="_blank"><img
-                            src="https://gurualimentonatural.com/wp-content/uploads/2020/02/SustentoMarino.jpg"
-                            alt="Sustento Marino"></a>
+                    <a href="https://gurualimentonatural.com/producto/mensualidad-vitalplus/" target="_blank"><img
+                            src="https://gurualimentonatural.com/wp-content/uploads/2020/02/VitalPlus.jpg"
+                            alt="Vital Plus"></a>
 
-                    <p>Sustento Marino</p>
+                    <p>Vital Plus</p>
 
-                    <button  class="Calculator__button Calculator__redirect" value="0">¡Compra aquí!</button>
+                    <button class="Calculator__button Calculator__redirect" value="3">¡Compra aquí!</button>
                 </div>
-
-                <div class="Calculator__results--item">
-                    <a href="https://gurualimentonatural.com/producto/mensualidad-balanceintegral/" target="_blank"><img
-                            src="https://gurualimentonatural.com/wp-content/uploads/2020/02/BalanceIntegral.jpg"
-                            alt="Balance Integral"></a>
-
-                    <p>Balance Integral</p>
-
-                    <button href="#"  class="Calculator__button Calculator__redirect" value="1">¡Compra aquí!</button>
-                </div>
-
                 <div class="Calculator__results--item">
                     <a href="" target="_blank"><img
                             src="https://gurualimentonatural.com/wp-content/uploads/2020/02/InstintoCanino.jpg"
@@ -95,41 +84,44 @@
 
                     <p>Instinto Canino</p>
 
-                    <button href="#"  class="Calculator__button Calculator__redirect" value="2">¡Compra aquí!</button>
+                    <button href="#" class="Calculator__button Calculator__redirect" value="2">¡Compra aquí!</button>
                 </div>
-
                 <div class="Calculator__results--item">
-                    <a href="https://gurualimentonatural.com/producto/mensualidad-vitalplus/" target="_blank"><img
-                            src="https://gurualimentonatural.com/wp-content/uploads/2020/02/VitalPlus.jpg"
-                            alt="Vital Plus"></a>
-                      
-                    <p>Vital Plus</p>
+                    <a href="https://gurualimentonatural.com/producto/mensualidad-balanceintegral/" target="_blank"><img
+                            src="https://gurualimentonatural.com/wp-content/uploads/2020/02/BalanceIntegral.jpg"
+                            alt="Balance Integral"></a>
 
-                    <button class="Calculator__button Calculator__redirect" value="3" >¡Compra aquí!</button>
+                    <p>Balance Integral</p>
+
+                    <button href="#" class="Calculator__button Calculator__redirect" value="1">¡Compra aquí!</button>
                 </div>
-
                 <div class="Calculator__results--item">
                     <a href="https://gurualimentonatural.com/producto/mensualidad-vidaintrepida/" target="_blank"><img
                             src="https://gurualimentonatural.com/wp-content/uploads/2020/02/VidaIntrepida-1.jpg"
                             alt="Vida Intrépida"></a>
-                      
+
                     <p>Vida Intrépida</p>
 
-                    <button  class="Calculator__button Calculator__redirect" value="4">¡Compra aquí!</button>
+                    <button class="Calculator__button Calculator__redirect" value="4">¡Compra aquí!</button>
                 </div>
+                <div class="Calculator__results--item">
+                    <a href="https://gurualimentonatural.com/producto/mensualidad-sustentomarino/" target="_blank"><img
+                            src="https://gurualimentonatural.com/wp-content/uploads/2020/02/SustentoMarino.jpg"
+                            alt="Sustento Marino"></a>
 
+                    <p>Sustento Marino</p>
+
+                    <button class="Calculator__button Calculator__redirect" value="0">¡Compra aquí!</button>
+                </div>
                 <div class="Calculator__results--item">
                     <a href="https://gurualimentonatural.com/producto/mensualidad-mix/" target="_blank"><img
                             src="https://gurualimentonatural.com/wp-content/uploads/2020/02/Producto-Mix-510x510.png"
                             alt="Vida Intrépida"></a>
-                      
+
                     <p>Gurú Mix</p>
 
-                    <button  class="Calculator__button Calculator__redirect" value="5">¡Compra aquí!</a>
+                    <button class="Calculator__button Calculator__redirect" value="5">¡Compra aquí!</a>
                 </div>
-
-
-                
             </div>
         </div>
     </section>

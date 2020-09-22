@@ -12,6 +12,7 @@ var petButton = document.getElementById("Calculator__button");
 var scoop = document.querySelector("#scoop");
 var foodAmount = document.querySelector("#foodAmount");
 var portion = document.querySelector("#portion");
+var fraction = document.getElementById('fraction');
 var foodButtons = document.querySelectorAll(".Calculator__redirect");
 
 //Variables
@@ -144,9 +145,16 @@ function calculate() {
   let monthlyPortion = getMonthlyPortion(dailyPortion);
   monthlyKilograms = getMonthlyKilograms(monthlyPortion);
   let scoopsQuantity = getScoopsQuantity(dailyPortion);
+  console.log(scoopsQuantity)
   portion.innerHTML = dailyPortion;
-  foodAmount.innerHTML = monthlyKilograms+" Kg";
-  scoop.innerHTML = scoopsQuantity;
+  foodAmount.innerHTML = monthlyKilograms;
+  scoop.innerHTML = scoopsQuantity[0];
+  if(scoopsQuantity[1]){
+    fraction.innerHTML = scoopsQuantity[1];
+  }else{
+    fraction.innerHTML = "";
+  }
+  
 }
 
 function getPortioningPercentage() {
@@ -240,23 +248,23 @@ function getMonthlyKilograms(monthlyPortion) {
 function getScoopsQuantity(dailyPortion) {
   let scoopQuantity = dailyPortion / scoops;
   if (scoopQuantity % 1 == 0) {
-    return scoopQuantity;
+    return [scoopQuantity];
   }
   let scoopValues = scoopQuantity.toFixed(1).split(".");
   if (scoopValues[1] == 0) {
-    return Math.round(scoopQuantity);
+    return [Math.round(scoopQuantity)];
   }
   if (scoopValues[1] > 0 && scoopValues[1] <= 2.5) {
-    return scoopValues[0] + " 1/4";
+    return [scoopValues[0],"1/4"];
   }
   if (scoopValues[1] > 2.5 && scoopValues[1] <= 5.0) {
-    return scoopValues[0] + " 1/2";
+    return [scoopValues[0],"1/2"];
   }
   if (scoopValues[1] > 5.0 && scoopValues[1] <= 7.5) {
-    return scoopValues[0] + " 3/4";
+    return [scoopValues[0],"3/4"];
   }
   if (scoopValues[1] > 7.5) {
-    return parseFloat(scoopValues[0]) + 1;
+    return [parseFloat(scoopValues[0]) + 1];
   }
 }
 
