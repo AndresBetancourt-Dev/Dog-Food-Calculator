@@ -15,6 +15,7 @@ var fraction = document.getElementById("fraction");
 var foodButtons = document.querySelectorAll(".Calculator__redirect");
 
 //Variables
+var monthlyKilograms = 0;
 const scoops = 33.25;
 const days = 30;
 var increment = 9;
@@ -33,10 +34,18 @@ const errorMessages = [
   "!Error! No se seleccionó la edad.",
 ];
 
+const phone = "3125176343";
+const whatsAppLink = "https://api.whatsapp.com/send?phone=57"+phone+"&text=";
+
 //Adding link to each button
 for (index = 0; index < foodButtons.length; index++) {
+  if(index>=foodButtons.length-1){
+    foodButtons[index].addEventListener('click',function(){
+      window.open(whatsAppLink+"Hola, Buen día, Cordial Saludo, Acabo de Utilizar La Calculadora de Porciones y he optado por comprar "+monthlyKilograms+" Kg de Gurú Mix.");
+    });
+    continue;
+  }
   foodButtons[index].addEventListener("click", function (event) {
-    console.log(event);
     if (monthlyKilograms) {
       if (monthlyKilograms > 23.5) {
         window.open(
@@ -54,6 +63,10 @@ for (index = 0; index < foodButtons.length; index++) {
     }
   });
 }
+
+document.getElementsByClassName('Calculator__advice--link')[0].addEventListener('click',function(){
+  window.open(whatsAppLink+"Hola, Buen día, Cordial Saludo, Acabo de Utilizar La Calculadora de Porciones y mi mascota tiene una dieta, escribo para obtener más información al respecto. Gracias.");
+})
 
 //Adding listener to Select's
 petSize.addEventListener("change", function () {
