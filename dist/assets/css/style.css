@@ -1,202 +1,211 @@
-@font-face{
-    src: url('../fonts/Delius-Regular.ttf');
-    font-family: 'Delius';
+@font-face {
+  src: url("../fonts/Delius-Regular.ttf");
+  font-family: "Delius";
 }
 
-.Calculator__main *{
-    box-sizing: border-box;
+.Calculator__main * {
+  box-sizing: border-box;
 }
 
-.Calculator__main{
-    font-family: 'Delius', sans-serif;
-    display: grid;
-    width: 100%;
-    justify-items: center;
+.Calculator__main {
+  font-family: "Delius", sans-serif;
+  display: grid;
+  width: 100%;
+  justify-items: center;
 }
 
-.Calculator__title{
-    color: #81c35a;
-    text-align: center;
-    font-size: 2.5rem;
+.Calculator__title {
+  color: #81c35a;
+  text-align: center;
+  font-size: 2.5rem;
 }
 
-.Calculator__subtitle{
-    font-size: 2rem;
+.Calculator__subtitle {
+  font-size: 2rem;
 }
 
 /*Selects*/
 
-.Calculator__select{
-    display: grid;
-    margin-bottom: 20px;
-    width: 80%;
+.Calculator__select {
+  display: grid;
+  margin-bottom: 20px;
+  width: 80%;
 }
 
-.Calculator__select label{
-    font-size: large;
-    font-weight: bold;
-    margin-bottom: 20px;
+.Calculator__select label {
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+  align-content: center;
+}
+
+.Calculator__select select,
+.Calculator__select input {
+  font-family: "Delius", sans-serif;
+  width: 100%;
+  padding: 5px;
+  border-radius: 7.5px;
+  font-size: large;
+  outline: none;
+}
+
+.Calculator__button {
+  font-family: "Delius", sans-serif;
+  font-size: 1.75em;
+  font-weight: bolder;
+  border: none;
+  border-radius: 5px;
+  width: 80%;
+  padding: 20px;
+  cursor: pointer;
+  color: white;
+  background-color: #7dd56c;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.Calculator__redirect {
+  padding: 10px;
+  width: 100%;
+  font-size: 1.25vw;
+}
+
+[id$="error"] {
+  padding-top: 20px;
+  color: crimson;
+}
+
+.Calculator__results {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 80%;
+  color: #433185;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.075);
+  font-weight: bold;
+  justify-items: center;
+  box-sizing: border-box;
+  max-height: 0px;
+  transition: max-height 1s;
+  overflow: hidden;
+}
+
+#Castrated {
+  max-height: 0px;
+  transition: max-height 1s;
+  overflow: hidden;
+}
+
+.Calculator__results-data {
+  display: grid;
+  width: 100%;
+  color: #433185;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.125);
+  justify-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 20px;
+  grid-gap: 20px;
+  margin-bottom: 30px;
+}
+
+#scoop,
+#foodAmount,
+#portion {
+  font-size: 1.5em;
+}
+
+#fraction {
+  font-size: 0.75em;
+}
+
+.Calculator__results--item {
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+.Calculator__advice p {
+  display: flex;
+  align-content: center;
+  text-align: center;
+}
+
+a.Calculator__advice--link {
+  max-width: 70px;
+  font-size: 1rem;
+  border-radius: 20px;
+  display: flex;
+  justify-self: center;
+  margin: 0 auto;
+  padding: 3.5px 17.5px;
+}
+
+.Calculator__results-images {
+  display: grid;
+  width: 100%;
+  color: #433185;
+  justify-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 20px;
+  grid-gap: 20px;
+}
+
+.Calculator__results--item img {
+  width: 15vw;
+  height: 15vw;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.125);
+  transition: 2s;
+  cursor: pointer;
+}
+.Calculator__results--item img:hover {
+  transform: scale(1.1, 1.1);
+  transition: 2s;
+}
+
+.Calculator__results--item img.scoop-image {
+  width: 40px;
+  height: 40px;
+  box-shadow: none;
+  margin-top: -40px;
+}
+
+.Calculator__results-price {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 670px) {
+  .Calculator__results {
     width: 100%;
-    text-align: center;
-    align-content: center;
+  }
+
+  .Calculator__advice p,
+  a.Calculator__advice--link {
+    font-size: 2.5vw;
+  }
+
+  .Calculator__results-images {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .Calculator__results--item {
+    font-size: 4vw;
+  }
+
+  .Calculator__results--item img {
+    width: 25vw;
+    height: 25vw;
+  }
+
+  .Calculator__redirect {
+    font-size: 3.75vw;
+  }
 }
 
-.Calculator__select select,.Calculator__select input{
-    font-family: 'Delius', sans-serif;
-    width: 100%;
-    padding : 5px;
-    border-radius: 7.5px;
-    font-size: large;
-    outline: none;
-}
-
-.Calculator__button{
-    font-family: 'Delius', sans-serif;
-    font-size: 1.75em;
-    font-weight: bolder;
-    border: none;
-    border-radius: 5px;
-    width: 80%;
-    padding: 20px;
-    cursor: pointer;
-    color: white;
-    background-color:#7dd56c;
-    margin-bottom: 20px;
-    outline: none;
-}
-
-.Calculator__redirect{
-    padding: 10px;
-    width: 100%;
-    font-size: 1.25vw;
-}
-
-[id$="error"]{
-    padding-top: 20px;
-    color: crimson;
-}
-
-.Calculator__results{
-    display: grid;
-    grid-template-columns: 1fr;
-    width: 80%;
-    color: #433185;
-    border-radius: 5px;
-    box-shadow: 0px 0px 20px rgba(0,0,0,.075);
-    font-weight: bold;
-    justify-items: center;
-    box-sizing: border-box;
-    max-height: 0px;
-    transition: max-height 1s;
-    overflow: hidden;
-}
-
-#Castrated{
-    max-height: 0px;
-    transition: max-height 1s;
-    overflow: hidden;
-}
-
-.Calculator__results-data{
-    display: grid;
-    width: 100%;
-    color: #433185;
-    box-shadow: 0px 0px 10px rgba(0,0,0,.125);
-    justify-items: center;
-    grid-template-columns: repeat(3,1fr);
-    padding: 20px;
-    grid-gap: 20px;
-    margin-bottom: 30px;
-}
-
-#scoop,#foodAmount,#portion{
-    font-size: 1.5em;
-}
-
-#fraction{
-    font-size: .75em;
-}
-
-.Calculator__results--item{
-    text-align: center;
-    font-size: 1.25rem;
-}
-
-.Calculator__advice p{
-    display: flex;
-    align-content: center;
-    text-align: center;
-}
-
-a.Calculator__advice--link{
-    max-width: 70px;
-    font-size: 1rem;
-    border-radius: 20px;
-    display: flex;
-    justify-self: center;
-    margin: 0 auto;
-    padding: 3.5px 17.5px;
-}
-
-.Calculator__results-images{
-    display: grid;
-    width: 100%;
-    color: #433185;
-    justify-items: center;
-    grid-template-columns: repeat(3,1fr);
-    padding: 20px;
-    grid-gap: 20px
-}
-
-.Calculator__results--item img{
-    width: 15vw;
-    height: 15vw;
-    border-radius: 20px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,.125);
-    transition: 2s;
-    cursor: pointer;
-}
-.Calculator__results--item img:hover{
-    transform: scale(1.1,1.1);
-    transition: 2s;
-}
-
-.Calculator__results--item img.scoop-image{
-    width: 40px;
-    height: 40px;
-    box-shadow: none;
-    margin-top: -40px;
-}
-
-@media screen and (max-width: 670px){
-    .Calculator__results{
-        width: 100%;
-    }
-
-    .Calculator__advice p,a.Calculator__advice--link{
-        font-size: 2.5vw;
-    }
-
-    .Calculator__results-images{
-        grid-template-columns: repeat(2,1fr); 
-    }
-
-    .Calculator__results--item{
-        font-size: 4vw;
-    }
-
-    .Calculator__results--item img{
-        width: 25vw;
-        height: 25vw;
-    }
-
-    .Calculator__redirect{
-        font-size: 3.75vw;
-    }
-}
-
-@media screen and (max-width: 550px){
-    .Calculator__advice p,a.Calculator__advice--link{
-        font-size: 3vw;
-    }
+@media screen and (max-width: 550px) {
+  .Calculator__advice p,
+  a.Calculator__advice--link {
+    font-size: 3vw;
+  }
 }

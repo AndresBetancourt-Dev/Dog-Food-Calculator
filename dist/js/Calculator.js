@@ -13,6 +13,7 @@ var foodAmount = document.querySelector("#foodAmount");
 var portion = document.querySelector("#portion");
 var fraction = document.getElementById("fraction");
 var foodButtons = document.querySelectorAll(".Calculator__redirect");
+var foodPrices = document.getElementsByClassName("Calculator__results-price");
 
 //Variables
 var monthlyKilograms = 0;
@@ -33,15 +34,266 @@ const errorMessages = [
   "¡Error! No se seleccionó si es castrado o no.",
   "!Error! No se seleccionó la edad.",
 ];
+const prices = [
+  [
+    "37.500",
+    "53.000",
+    "63.000",
+    "85.000",
+    "100.500",
+    "116.500",
+    "132.000",
+    "147.500",
+    "160.000",
+    "175.500",
+    "191.000",
+    "201.000",
+    "212.500",
+    "221.000",
+    "229.000",
+    "238.000",
+    "252.000",
+    "266.000",
+    "280.000",
+    "294.000",
+    "307.500",
+    "321.500",
+    "335.500",
+    "349.500",
+    "363.500",
+    "377.500",
+    "391.500",
+    "405.500",
+    "419.500",
+    "433.500",
+    "447.500",
+    "461.500",
+    "475.500",
+    "489.500",
+    "503.500",
+    "517.500",
+    "531.500",
+    "545.500",
+    "559.500",
+    "573.500",
+    "587.500",
+    "601.500",
+    "615.500",
+    "629.500",
+    "643.500",
+    "657.500",
+  ],
+  [
+    "43.500",
+    "57.500",
+    "74.500",
+    "92.000",
+    "106.500",
+    "122.000",
+    "142.000",
+    "156.000",
+    "173.000",
+    "190.500",
+    "208.000",
+    "217.500",
+    "234.000",
+    "251.000",
+    "263.500",
+    "274.000",
+    "292.500",
+    "309.000",
+    "325.000",
+    "341.500",
+    "357.500",
+    "374.000",
+    "390.000",
+    "406.500",
+    "422.500",
+    "439.000",
+    "455.000",
+    "471.500",
+    "487.500",
+    "504.000",
+    "520.000",
+    "536.500",
+    "552.500",
+    "569.000",
+    "585.000",
+    "601.500",
+    "618.000",
+    "634.000",
+    "650.500",
+    "666.500",
+    "683.000",
+    "699.000",
+    "715.500",
+    "731.500",
+    "748.000",
+    "764.000",
+  ],
+  [
+    "58.500",
+    "85.000",
+    "101.500",
+    "125.000",
+    "150.000",
+    "168.000",
+    "196.500",
+    "203.000",
+    "217.500",
+    "238.500",
+    "259.500",
+    "266.500",
+    "286.500",
+    "306.500",
+    "318.000",
+    "337.500",
+    "357.000",
+    "376.500",
+    "396.500",
+    "416.500",
+    "436.000",
+    "456.000",
+    "476.000",
+    "495.500",
+    "515.500",
+    "535.500",
+    "555.000",
+    "575.000",
+    "595.000",
+    "614.500",
+    "634.500",
+    "654.500",
+    "674.000",
+    "694.000",
+    "714.000",
+    "733.500",
+    "753.500",
+    "773.500",
+    "793.000",
+    "813.000",
+    "833.000",
+    "852.500",
+    "872.500",
+    "892.500",
+    "912.000",
+    "932.000",
+  ],
+  [
+    "61.500",
+    "89.000",
+    "106.000",
+    "131.000",
+    "153.500",
+    "176.500",
+    "206.000",
+    "215.500",
+    "228.500",
+    "250.500",
+    "272.500",
+    "280.000",
+    "301.000",
+    "322.000",
+    "327.000",
+    "347.000",
+    "367.000",
+    "387.500",
+    "407.500",
+    "428.000",
+    "448.500",
+    "469.000",
+    "489.000",
+    "509.500",
+    "530.000",
+    "550.500",
+    "570.500",
+    "591.000",
+    "611.500",
+    "632.000",
+    "652.500",
+    "672.500",
+    "693.000",
+    "713.500",
+    "734.000",
+    "754.000",
+    "774.000",
+    "795.000",
+    "815.500",
+    "835.500",
+    "856.000",
+    "876.500",
+    "897.000",
+    "917.500",
+    "937.500",
+    "958.000",
+  ],
+  [
+    "76.500",
+    "111.500",
+    "135.500",
+    "168.000",
+    "196.500",
+    "226.500",
+    "258.000",
+    "278.000",
+    "292.000",
+    "320.500",
+    "349.000",
+    "354.500",
+    "381.000",
+    "408.000",
+    "423.500",
+    "449.500",
+    "475.500",
+    "502.000",
+    "528.000",
+    "554.500",
+    "581.000",
+    "607.500",
+    "634.000",
+    "660.500",
+    "686.500",
+    "713.000",
+    "739.500",
+    "766.000",
+    "792.500",
+    "818.500",
+    "845.500",
+    "871.500",
+    "898.000",
+    "924.500",
+    "951.000",
+    "977.000",
+    "1.003.500",
+    "1.030.000",
+    "1.056.500",
+    "1.083.000",
+    "1.109.500",
+    "1.135.500",
+    "1.162.000",
+    "1.188.500",
+    "1.215.000",
+    "1.241.500",
+  ],
+];
 
-const phone = "3125176343";
-const whatsAppLink = "https://api.whatsapp.com/send?phone=57"+phone+"&text=";
+const phone = "3183295026";
+const genericMessage =
+  "Hola, Buen día, Cordial Saludo, Acabo de Utilizar La Calculadora de Porciones ";
+const whatsAppLink =
+  "https://api.whatsapp.com/send?phone=57" + phone + "&text=";
 
 //Adding link to each button
 for (index = 0; index < foodButtons.length; index++) {
-  if(index>=foodButtons.length-1){
-    foodButtons[index].addEventListener('click',function(){
-      window.open(whatsAppLink+"Hola, Buen día, Cordial Saludo, Acabo de Utilizar La Calculadora de Porciones y he optado por comprar "+monthlyKilograms+" Kg de Gurú Mix.");
+  if (index >= foodButtons.length - 1) {
+    foodButtons[index].addEventListener("click", function () {
+      window.open(
+        whatsAppLink +
+          genericMessage +
+          "y he optado por comprar " +
+          monthlyKilograms +
+          " Kg de Gurú Mix."
+      );
     });
     continue;
   }
@@ -64,9 +316,15 @@ for (index = 0; index < foodButtons.length; index++) {
   });
 }
 
-document.getElementsByClassName('Calculator__advice--link')[0].addEventListener('click',function(){
-  window.open(whatsAppLink+"Hola, Buen día, Cordial Saludo, Acabo de Utilizar La Calculadora de Porciones y mi mascota tiene una dieta, escribo para obtener más información al respecto. Gracias.");
-})
+document
+  .getElementsByClassName("Calculator__advice--link")[0]
+  .addEventListener("click", function () {
+    window.open(
+      whatsAppLink +
+        genericMessage +
+        "y mi mascota tiene una dieta especial, escribo para obtener más información al respecto. Gracias."
+    );
+  });
 
 //Adding listener to Select's
 petSize.addEventListener("change", function () {
@@ -106,6 +364,7 @@ function handleSubmit() {
     event.preventDefault();
     if (validData()) {
       calculate();
+      setPrices();
       results.style.maxHeight = results.scrollHeight + "px";
     }
   });
@@ -160,7 +419,6 @@ function calculate() {
   let monthlyPortion = getMonthlyPortion(dailyPortion);
   monthlyKilograms = getMonthlyKilograms(monthlyPortion);
   let scoopsQuantity = getScoopsQuantity(dailyPortion);
-  console.log(scoopsQuantity);
   portion.innerHTML = dailyPortion;
   foodAmount.innerHTML = monthlyKilograms;
   scoop.innerHTML = scoopsQuantity[0];
@@ -168,6 +426,15 @@ function calculate() {
     fraction.innerHTML = scoopsQuantity[1];
   } else {
     fraction.innerHTML = "";
+  }
+}
+
+function setPrices() {
+  for (let i = 0; i < foodPrices.length; i++) {
+    if (i == foodPrices.length - 1) {
+      break;
+    }
+    foodPrices[i].innerHTML = "$ " + prices[i][monthlyKilograms * 2 - 2];
   }
 }
 
