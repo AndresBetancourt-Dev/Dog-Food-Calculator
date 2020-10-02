@@ -132,6 +132,7 @@
   align-content: center;
   text-align: center;
   flex-direction: column;
+  padding: 0 35px;
 }
 
 .Calculator__advice p {
