@@ -418,9 +418,17 @@ function calculate() {
   let dailyPortion = getDailyPortion(portioningPercentage, activityValue);
   let monthlyPortion = getMonthlyPortion(dailyPortion);
   monthlyKilograms = getMonthlyKilograms(monthlyPortion);
+  if (monthlyKilograms < 1) {
+    monthlyKilograms = 1;
+  }
   let scoopsQuantity = getScoopsQuantity(dailyPortion);
-  portion.innerHTML = dailyPortion;
-  foodAmount.innerHTML = monthlyKilograms;
+  portion.innerHTML = dailyPortion + " gr";
+  foodAmount.innerHTML = monthlyKilograms + " Kg";
+  if (scoopsQuantity[0] == 0) {
+    scoop.innerHTML = scoopsQuantity[1];
+    fraction.innerHTML = "";
+    return;
+  }
   scoop.innerHTML = scoopsQuantity[0];
   if (scoopsQuantity[1]) {
     fraction.innerHTML = scoopsQuantity[1];

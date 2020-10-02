@@ -15,6 +15,14 @@
   <body>
     <section class="Calculator__main">
       <h2 class="Calculator__title">Calculadora de Porciones</h2>
+      <div class="Calculator__advice">
+        <p>
+          Esta porción está calculada asumiendo que tu perrito tiene un gasto
+          energía promedio y está en condiciones ideales de peso. <br />
+          Si tu perro tiene una condición especifica consulta su dieta especial
+        </p>
+        <a class="Calculator__button Calculator__advice--link">aquí</a>
+      </div>
       <div class="Calculator__select">
         <label for="petSize">Peso (kg)</label>
         <input
@@ -58,14 +66,14 @@
         <div class="Calculator__results-data">
           <div class="Calculator__results--item">
             <div id="portion"></div>
-            <span>Gurú al día (gr)</span>
+            <span>Gurú al día</span>
           </div>
           <div class="Calculator__results--item">
             <div id="foodAmount"></div>
-            <span>Mensualidad Gurú (Kg)</span>
+            <span>Mensualidad Gurú</span>
           </div>
           <div class="Calculator__results--item">
-            <div>
+            <div class="Calculator__results-scoop">
               <img
                 class="scoop-image"
                 src="dist/assets/images/scoop.png"
@@ -78,15 +86,7 @@
             <span>Porción diaria (Cuchara medidora)</span>
           </div>
         </div>
-        <div class="Calculator__advice">
-          <p>
-            Esta porción está calculada asumiendo que tu perrito tiene un gasto
-            energía promedio y está en condiciones ideales de peso. <br />
-            Si tu perro tiene una condición especifica consulta su dieta
-            especial
-          </p>
-          <a class="Calculator__button Calculator__advice--link">aquí</a>
-        </div>
+
         <h2 class="Calculator__subtitle">Escoge tu mensualidad</h2>
         <div class="Calculator__results-images">
           <div class="Calculator__results--item">
